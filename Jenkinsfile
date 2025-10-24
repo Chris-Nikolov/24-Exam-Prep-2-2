@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Checkout') {
             when {
-                branch 'main'
+                branch '(develop|feature)'
             }
             steps {
                 echo 'Извличане на кода от main клона...'
