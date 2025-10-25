@@ -6,16 +6,19 @@ pipeline {
     }
 
     triggers {
+        // По-добре е да използваш webhook, но ако държиш на polling:
         pollSCM('* * * * *')
+    }
+
+    // Ограничаваме изпълнението само за клоните main и feature*
+    when {
+        branch pattern "main|feature.*"
     }
 
     stages {
         stage('Checkout') {
-            when {
-                branch '(main|feature)'
-            }
             steps {
-                echo 'Извличане на кода от main клона...'
+                echo "Извличане на кода от ${env.BRANCH_NAME} клона..."
                 checkout scm
             }
         }
